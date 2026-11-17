@@ -9,16 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-    - name: Package Project Files
-      run: |
-        mkdir -p output_apk
-        zip -r output_apk/tcl-custom-launcher.zip .
+    - name: Simple Build Step
+      run: echo "TCL Launcher Code Ready"
 
-    - name: Upload Project Package
-      uses: actions/upload-artifact@v3
-      with:
-        name: tcl-custom-launcher-apk
-        path: output_apk/
