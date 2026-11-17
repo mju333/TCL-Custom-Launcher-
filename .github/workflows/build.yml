@@ -12,6 +12,13 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Simple Build Step
-      run: echo "TCL Launcher Code Ready"
+    - name: Package App Files
+      run: |
+        mkdir -p output
+        zip -r output/TCL-Launcher.zip .
 
+    - name: Upload APK/Zip Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TCL-Launcher-Package
+        path: output/TCL-Launcher.zip
