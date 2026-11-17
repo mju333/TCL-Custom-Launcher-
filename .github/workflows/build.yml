@@ -12,13 +12,24 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Package App Files
-      run: |
-        mkdir -p output
-        zip -r output/TCL-Launcher.zip .
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
-    - name: Upload APK/Zip Artifact
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
+
+    - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: TCL-Launcher-Package
-        path: output/TCL-Launcher.zip
+        name: app-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
+
